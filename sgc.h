@@ -1,12 +1,12 @@
-#ifndef sgc_h
-#define sgc_h
+#ifndef SGC_H
+#define SGC_H
 
-char adicionarUsuario(char nomeUsuario[], int senha[], char privilegio);
-void autenticar(char nomeAdmin[], int senha);
-char adicionarProduto(char nomeProduto[], float precoProduto, int quantidade);
-char excluirUsuario(char nomeUsuario[]);
-char realizarPedido(char nomeProduto[], int quantidade, int numPedido);
-char cancelarPedido(int numPedido);
-char listarProdutos();
+void adicionarUsuario();
+void autenticar();
+void adicionarProduto();
+void excluirUsuario();
+void realizarPedido();
+void cancelarPedido();
+void listarProdutos();
 
 #endif
