@@ -8,5 +8,6 @@ void excluirUsuario();
 void realizarPedido();
 void cancelarPedido();
 void listarProdutos();
+void listarPedidos();
 
 #endif
