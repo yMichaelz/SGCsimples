@@ -123,3 +123,41 @@ void autenticar() {
 
     return;
 }
+
+void excluirUsuario(){
+    FILE *usuariosTxt, *newUsuariosTxt;
+    usuariosTxt = fopen("usuarios.txt", "r");
+    char usuarioDeletar[50];
+    char usuarios[40]
+    
+    if(usuariosTxt == NULL){
+        printf("ERRO AO ABRIR O ARQUIVO");
+    }
+
+    if(newUsuariosTxt == NULL){
+        printf("ERRO AO CRIAR NOVO ARQUIVO");
+    }
+    
+    printf("Informe o nome do usuário a ser deletado: ");
+    scanf("%s", usuarioDeletar);
+
+    while (fscanf(usuariosTxt, "%s", usuarios) != EOF)
+    {
+        if(strcmp(usuarioDeletar, usuarios) != 0){
+            fputs(usuarios, newUsuariosTxt);
+        }
+    }
+    
+    fclose(usuariosTxt);
+    fclose(newUsuariosTxt);
+
+    if(remove(usuariosTxt) != 0){
+        printf("ERRO AO APAGAR ARQUIVO ORIGINAL");
+        return;
+    }
+
+    if(rename("usuarios.txt", newUsuariosTxt) != 0){
+        printf("ERRO AO RENOMEAR ARQUIVO");
+    }
+
+}
