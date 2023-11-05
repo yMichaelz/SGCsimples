@@ -128,11 +128,13 @@ void excluirUsuario(){
     FILE *usuariosTxt, *newUsuariosTxt;
     usuariosTxt = fopen("usuarios.txt", "r");
     char usuarioDeletar[50];
-    char usuarios[40]
+    char usuarios[40];
     
     if(usuariosTxt == NULL){
         printf("ERRO AO ABRIR O ARQUIVO");
     }
+
+    newUsuariosTxt = fopen("temp.txt", "w");
 
     if(newUsuariosTxt == NULL){
         printf("ERRO AO CRIAR NOVO ARQUIVO");
@@ -147,6 +149,10 @@ void excluirUsuario(){
             fputs(usuarios, newUsuariosTxt);
         }
     }
+
+    if (feof(usuariosTxt)) {
+        printf("Usuário não encontrado ou credenciais incorretas.\n");
+    }
     
     fclose(usuariosTxt);
     fclose(newUsuariosTxt);
@@ -156,7 +162,7 @@ void excluirUsuario(){
         return;
     }
 
-    if(rename("usuarios.txt", newUsuariosTxt) != 0){
+    if(rename("temp.txt", "usuarios.txt") != 0){
         printf("ERRO AO RENOMEAR ARQUIVO");
     }
 
