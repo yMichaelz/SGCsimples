@@ -15,21 +15,31 @@ int main(){
     while(shouldRun == 0){
         printf("===== BEM VINDO =====\n");
     printf("\n");
-    printf("Escolha uma opção: \n");
-    printf("1. Acesso comum\n 2. Acesso administrativo\n 3. Sair\n");
+    printf("Escolha uma opcao:\n");
+    printf("1. Acesso comum\n2. Acesso administrativo\n3. Sair\n");
     scanf("%d", &indiceMenu);
-    system("clear");
 
     switch (indiceMenu)
     {
     case 1:
-        printf("Que função você deseja operar?\n 1. Listar produtos\n 2. Realizar pedido\n");
+        printf("Que funcao você deseja operar?\n 1. Listar produtos\n 2. Realizar pedido\n");
         scanf("%d", &indiceUsuario);
+        switch (indiceUsuario)
+        {
+        case 1:
+            listarProdutos();
+            break;
+        case 2:
+            //realizarPedido();
+            break;
+        default:
+            break;
+        }
         break;
     
     case 2:
-        printf("Que função você deseja operar?\n 1. Listar pedidos\n 2. Cancelar pedidos\n 3. Adicionar usuário\n");
-        printf("4. Deletar usuário\n 5. Adicionar produto\n");
+        printf("Que funcao você deseja operar?\n1. Listar pedidos\n2. Cancelar pedidos\n3. Adicionar usuario\n");
+        printf("4. Deletar usuário\n5. Adicionar produto\n6. Listar prosutos\n7. Deletar produto\n");
         scanf("%d", &indiceAdmin);
         switch (indiceAdmin)
         {
@@ -47,8 +57,15 @@ int main(){
             excluirUsuario();
             break;
         case 5:
+            listarUsuarios();
+        case 6:
             adicionarProduto();
             break;
+        case 7:
+            listarProdutos();
+            break;
+        case 8:
+            //deletarProduto();
         default:
             printf("Opção inválida.");
             break;

@@ -3,6 +3,14 @@
 #include <string.h>
 #include "sgc.h"
 
+char linha[100];
+
+struct Leitura {
+    char dado1[51];
+    char dado2[51];
+    char dado3[51];
+};
+
 struct UsuariosLogin {
     char nome[51];        // Maior tamanho para acomodar 50 caracteres + caractere nulo
     char senha[51];       // Maior tamanho para acomodar 50 caracteres + caractere nulo
@@ -53,7 +61,7 @@ void adicionarUsuario() {
 
 void adicionarProduto() {
     FILE *estoqueTxt;
-    estoqueTxt = fopen("estoque.txt", "a"); // Modo "a" para acrescentar ao arquivo
+    estoqueTxt = fopen("estoque.txt", "w+"); // Modo "a" para acrescentar ao arquivo
 
     if (estoqueTxt == NULL) {
         printf("ERRO AO ABRIR O ARQUIVO\n");
@@ -173,4 +181,48 @@ void excluirUsuario(){
         printf("ERRO AO RENOMEAR ARQUIVO");
     }
 
+}
+
+void listarProdutos(){
+    FILE *produtosTxt;
+    produtosTxt = fopen("estoque.txt", "r+");
+
+    if(produtosTxt == NULL){
+        printf("ERRO AO ABRIR O ARQUIVO");
+    }    
+
+    struct Leitura produtos;
+
+    printf("\n=== PRODUTOS EM ESTOQUE ===\n");
+
+    while (fgets(linha, sizeof(linha), produtosTxt) != NULL)
+    {
+        printf("PRODUTO - PRECO - QUANTIDADE");
+        printf("%s\n==============\n\n", linha);
+    }
+    
+    fclose(produtosTxt);
+    
+}
+
+void listaruUsurios(){
+    FILE *usuariosTxt;
+    usuariosTxt = fopen("usuarios.txt", "r+");
+
+    if(usuariosTxt == NULL){
+        printf("ERRO AO ABRIR O ARQUIVO");
+    }    
+
+    struct Leitura produtos;
+
+    printf("\n=== USUARIOS CADASTRADOS ===\n");
+
+    while (fgets(linha, sizeof(linha), usuariosTxt) != NULL)
+    {
+        printf("NOME - SENHA - PRIVILEGIO");
+        printf("%s\n==============\n\n", linha);
+    }
+    
+    fclose(usuariosTxt);
+    
 }
