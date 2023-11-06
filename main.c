@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "sgc.h"
 
 void autenticar();
@@ -15,7 +16,7 @@ int main(){
         printf("===== BEM VINDO =====\n");
     printf("\n");
     printf("Escolha uma opção: \n");
-    printf("1. Acesso comum\n 2. Acesso administrativo\n");
+    printf("1. Acesso comum\n 2. Acesso administrativo\n 3. Sair\n");
     scanf("%d", &indiceMenu);
     system("clear");
 
@@ -43,7 +44,7 @@ int main(){
             adicionarUsuario();
             break;
         case 4:
-            //excluirUsuario();
+            excluirUsuario();
             break;
         case 5:
             adicionarProduto();
@@ -53,7 +54,9 @@ int main(){
             break;
         }
         break;
-
+    
+    case 3:
+        return 0;
 
     default:
         printf("Opção inválida!! Tente novamente!\n");

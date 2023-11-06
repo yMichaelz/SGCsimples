@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "sgc.h"
 
@@ -127,26 +128,32 @@ void autenticar() {
 void excluirUsuario(){
     FILE *usuariosTxt, *newUsuariosTxt;
     usuariosTxt = fopen("usuarios.txt", "r");
-    char usuarioDeletar[50];
-    char usuarios[40];
+    struct UsuariosLogin usuarioDeletar;
+    struct UsuariosLogin usuarios;
     
     if(usuariosTxt == NULL){
         printf("ERRO AO ABRIR O ARQUIVO");
     }
 
-    newUsuariosTxt = fopen("temp.txt", "w");
+    newUsuariosTxt = fopen("temp.txt", "w+");
 
     if(newUsuariosTxt == NULL){
         printf("ERRO AO CRIAR NOVO ARQUIVO");
     }
     
     printf("Informe o nome do usuário a ser deletado: ");
-    scanf("%s", usuarioDeletar);
+    scanf("%s", usuarioDeletar.nome);
 
-    while (fscanf(usuariosTxt, "%s", usuarios) != EOF)
+    printf("Informe a senha do usuário a ser deletado: ");
+    scanf("%s", usuarioDeletar.senha);
+
+    printf("Informe o privilegio do usuário a ser deletado: ");
+    scanf("%s", usuarioDeletar.privilegio);
+
+    while (fscanf(usuariosTxt, "%s %s %s", usuarios.nome, usuarios.senha, usuarios.privilegio) != EOF)
     {
-        if(strcmp(usuarioDeletar, usuarios) != 0){
-            fputs(usuarios, newUsuariosTxt);
+        if(strcmp(usuarioDeletar.nome, usuarios.nome) != 0){
+            fprintf(newUsuariosTxt, "%s %s %s", usuarios.nome, usuarios.senha, usuarios.privilegio);
         }
     }
 
@@ -157,7 +164,7 @@ void excluirUsuario(){
     fclose(usuariosTxt);
     fclose(newUsuariosTxt);
 
-    if(remove(usuariosTxt) != 0){
+    if(remove("usuarios.txt") != 0){
         printf("ERRO AO APAGAR ARQUIVO ORIGINAL");
         return;
     }
