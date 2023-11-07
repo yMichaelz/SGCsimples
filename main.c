@@ -22,7 +22,7 @@ int main(){
     switch (indiceMenu)
     {
     case 1:
-        printf("Que funcao você deseja operar?\n 1. Listar produtos\n 2. Realizar pedido\n");
+        printf("Que funcao voce deseja operar?\n 1. Listar produtos\n 2. Realizar pedido\n");
         scanf("%d", &indiceUsuario);
         switch (indiceUsuario)
         {
@@ -38,8 +38,8 @@ int main(){
         break;
     
     case 2:
-        printf("Que funcao você deseja operar?\n1. Listar pedidos\n2. Cancelar pedidos\n3. Adicionar usuario\n");
-        printf("4. Deletar usuário\n5. Adicionar produto\n6. Listar prosutos\n7. Deletar produto\n");
+        printf("Que funcao voce deseja operar?\n1. Listar pedidos\n2. Cancelar pedidos\n3. Adicionar usuario\n");
+        printf("4. Deletar usuário\n5. Listar usuários\n6. Adicionar produto\n7. Listar prosutos\n8. Deletar produto\n");
         scanf("%d", &indiceAdmin);
         switch (indiceAdmin)
         {
@@ -65,9 +65,9 @@ int main(){
             listarProdutos();
             break;
         case 8:
-            //deletarProduto();
+            deletarProduto();
         default:
-            printf("Opção inválida.");
+            printf("Opcao invalida.");
             break;
         }
         break;
@@ -76,13 +76,12 @@ int main(){
         return 0;
 
     default:
-        printf("Opção inválida!! Tente novamente!\n");
+        printf("Opcao invalida!! Tente novamente!\n");
         while(indiceMenu != 1 || indiceMenu != 2){
             printf("\n");
-            printf("===== Escolha uma opção: =====\n");
+            printf("===== Escolha uma opçao: =====\n");
             printf("1. Acesso comum\n 2. Acesso administrativo\n");
             scanf("%d", &indiceMenu);
-            system("clear");
             break;
         }
         break;

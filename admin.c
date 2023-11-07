@@ -40,22 +40,22 @@ void adicionarUsuario() {
 
     struct UsuariosLogin usuario;
 
-    printf("Informe o nome do novo usuário: ");
+    printf("Informe o nome do novo usuario: ");
     scanf("%50s", usuario.nome);
 
-    printf("Informe a senha do novo usuário: ");
+    printf("Informe a senha do novo usuario: ");
     scanf("%50s", usuario.senha);
 
     // Limpar o buffer após a leitura do inteiro
     while (getchar() != '\n');
 
-    printf("Informe o privilégio do novo usuário (a = admin / c = comum): ");
+    printf("Informe o privilégio do novo usuario (a = admin / c = comum): ");
     scanf("%1s", usuario.privilegio);
 
     fprintf(usuariosTxt, "%s %s %s\n", usuario.nome, usuario.senha, usuario.privilegio);
     fclose(usuariosTxt);
 
-    printf("Usuário cadastrado com sucesso.\n");
+    printf("Usuario cadastrado com sucesso.\n");
     return;
 }
 
@@ -104,13 +104,13 @@ void autenticar() {
     char senhaUsuario[51];         // Maior tamanho para acomodar 50 caracteres + caractere nulo
     char privilegioUsuario[2];
 
-    printf("Digite o nome de usuário: ");
+    printf("Digite o nome de usuario: ");
     scanf("%50s", nomeUsuario);
 
     printf("Digite a senha: ");
     scanf("%50s", senhaUsuario);
 
-    printf("Digite o caractere de privilégio (a = admin / c = comum): ");
+    printf("Digite o caractere de privilegio (a = admin / c = comum): ");
     scanf("%1s", privilegioUsuario);
 
     struct Usuarios usuario;
@@ -119,13 +119,13 @@ void autenticar() {
         if (strcmp(usuario.nome, nomeUsuario) == 0 &&
             strcmp(usuario.senha, senhaUsuario) == 0 &&
             strcmp(usuario.privilegio, privilegioUsuario) == 0) {
-            printf("Usuário autenticado com sucesso.\n");
+            printf("Usuario autenticado com sucesso.\n");
             break;
         }
     }
 
     if (feof(usuariosTxt)) {
-        printf("Usuário não encontrado ou credenciais incorretas.\n");
+        printf("Usuario nao encontrado ou credenciais incorretas.\n");
     }
 
     fclose(usuariosTxt);
@@ -149,13 +149,13 @@ void excluirUsuario(){
         printf("ERRO AO CRIAR NOVO ARQUIVO");
     }
     
-    printf("Informe o nome do usuário a ser deletado: ");
+    printf("Informe o nome do usuario a ser deletado: ");
     scanf("%s", usuarioDeletar.nome);
 
-    printf("Informe a senha do usuário a ser deletado: ");
+    printf("Informe a senha do usuario a ser deletado: ");
     scanf("%s", usuarioDeletar.senha);
 
-    printf("Informe o privilegio do usuário a ser deletado: ");
+    printf("Informe o privilegio do usuario a ser deletado: ");
     scanf("%s", usuarioDeletar.privilegio);
 
     while (fscanf(usuariosTxt, "%s %s %s", usuarios.nome, usuarios.senha, usuarios.privilegio) != EOF)
@@ -166,7 +166,7 @@ void excluirUsuario(){
     }
 
     if (feof(usuariosTxt)) {
-        printf("Usuário não encontrado ou credenciais incorretas.\n");
+        printf("Usuario não encontrado ou credenciais incorretas.\n");
     }
     
     fclose(usuariosTxt);
@@ -197,15 +197,15 @@ void listarProdutos(){
 
     while (fgets(linha, sizeof(linha), produtosTxt) != NULL)
     {
-        printf("PRODUTO - PRECO - QUANTIDADE");
-        printf("%s\n==============\n\n", linha);
+        printf("\nPRODUTO - PRECO - QUANTIDADE\n");
+        printf("%s\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n\n", linha);
     }
     
     fclose(produtosTxt);
     
 }
 
-void listaruUsurios(){
+void listarUsuarios(){
     FILE *usuariosTxt;
     usuariosTxt = fopen("usuarios.txt", "r+");
 
@@ -219,10 +219,51 @@ void listaruUsurios(){
 
     while (fgets(linha, sizeof(linha), usuariosTxt) != NULL)
     {
-        printf("NOME - SENHA - PRIVILEGIO");
-        printf("%s\n==============\n\n", linha);
+        printf("\nNOME - SENHA - PRIVILEGIO\n");
+        printf("%s\n=-=-=-=-=-=-=-=-=-=-=-=-==-=-=\n\n", linha);
     }
     
     fclose(usuariosTxt);
     
+}
+
+void deletarProduto(){
+    FILE *estoqueOriginalTxt, *novoEstoqueTxt;
+    struct Leitura produto;
+    char produtoDeletar[50];
+
+    estoqueOriginalTxt = fopen("estoque.txt", "r");
+
+    if(estoqueOriginalTxt == NULL){
+        printf("ERRO AO ABRIR ARQUIVO");
+    }
+
+    novoEstoqueTxt = fopen("temp.txt", "w");
+
+    if (novoEstoqueTxt == NULL)
+    {
+        printf("Erro ao criar novo arquivo");
+    }
+    
+    printf("Informe o nome do produto a ser excluido: ");
+    scanf("%s", produtoDeletar);
+    
+    while (fscanf(estoqueOriginalTxt, "%s %s %s", produto.dado1, produto.dado2, produto.dado3) != EOF)
+    {
+        if(strcmp(produtoDeletar, produto.dado1) != 0){
+            fprintf(novoEstoqueTxt, "%s %s %s", produto.dado1, produto.dado2, produto.dado3);
+        }
+    }
+    
+    fclose(estoqueOriginalTxt);
+    fclose(novoEstoqueTxt);
+
+    if(remove("estoque.txt") != 0){
+        printf("ERRO AO APAGAR ARQUIVO ANTIGO");
+    }
+
+    if(rename("temp.txt", "estoque.txt") != 0){
+        printf("ERRO AO RENOMEAR ARQUIVO");
+    }
+
 }
